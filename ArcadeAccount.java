@@ -1,11 +1,19 @@
+package com.example.arcadeui;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class ArcadeAccount {
+    @Id
     private String cardId;
     private String customerName;
     private LocalDate accountCreationDate;
     private int gamesPlayed;
     private int tokensEarned;
+
+    public ArcadeAccount() {} // Default constructor for JPA
 
     public ArcadeAccount(String cardId, String customerName, LocalDate date, int games, int tokens) {
         this.cardId = cardId;
@@ -15,24 +23,8 @@ public class ArcadeAccount {
         this.tokensEarned = tokens;
     }
 
-    // Getters and setters
-    public String getCardId() { return cardId; }
-    public String getCustomerName() { return customerName; }
-    public LocalDate getAccountCreationDate() { return accountCreationDate; }
-    public int getGamesPlayed() { return gamesPlayed; }
-    public int getTokensEarned() { return tokensEarned; }
+    // getters and setters ...
 
-    public void setCustomerName(String n) { customerName = n; }
-    public void setAccountCreationDate(LocalDate d) { accountCreationDate = d; }
-    public void setGamesPlayed(int g) { gamesPlayed = g; }
-    public void setTokensEarned(int t) { tokensEarned = t; }
-
-    /**
-     * method: getRewardEligible
-     * purpose: Determines the player's reward based on token count.
-     * parameters: none
-     * return: String – "Pizza", "Soda", or "None"
-     */
     public String getRewardEligible() {
         if (tokensEarned >= 100) return "Pizza";
         if (tokensEarned >= 50) return "Soda";
@@ -43,5 +35,17 @@ public class ArcadeAccount {
     public String toString() {
         return String.format("CardID: %s | Name: %s | Created: %s | Games: %d | Tokens: %d | Reward: %s",
                 cardId, customerName, accountCreationDate, gamesPlayed, tokensEarned, getRewardEligible());
+    }
+
+    @Id
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public void setTokensEarned(int newTokens) {
     }
 }
